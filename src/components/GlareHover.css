@@ -1,0 +1,72 @@
+.glare-hover {
+  position: relative;
+  /* visible so badges (e.g. “Most Popular”) can sit above the card; glare stays inside ::before/::after */
+  overflow: visible;
+  width: var(--gh-width);
+  height: var(--gh-height);
+  min-height: var(--gh-min-height, auto);
+  background: var(--gh-bg);
+  border-radius: var(--gh-br);
+  --mx: 50%;
+  --my: 50%;
+}
+
+.glare-hover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    var(--gh-rgba) 0%,
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity var(--gh-duration, 650ms) ease;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  z-index: 0;
+}
+
+.glare-hover:hover::before {
+  opacity: 1;
+}
+
+.glare-hover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  background: linear-gradient(
+    var(--gh-angle),
+    transparent 42%,
+    var(--gh-rgba) 50%,
+    transparent 58%
+  );
+  opacity: 0;
+  transition: opacity var(--gh-duration, 650ms) ease;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 0;
+}
+
+.glare-hover:hover::after {
+  opacity: 0.35;
+}
+
+/* Optional: animate glare once on first hover */
+.glare-hover--play-once:hover::before,
+.glare-hover--play-once:hover::after {
+  animation: glare-hover-fade var(--gh-duration, 650ms) ease forwards;
+}
+
+@keyframes glare-hover-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
