@@ -1,7 +1,8 @@
 /** Static event list. Each event can include `images` (carousel) and `more_info` (extra copy in the detail view). */
 
-import { SEASONS } from './seasons'
-import { enrichEventWithTag } from './eventTags'
+import { SEASONS } from './seasons.js'
+import { enrichEventWithTag } from './eventTags.js'
+import { slugify } from '../lib/slugs.js'
 
 export const EVENTS = [
   {
@@ -242,4 +243,21 @@ export function getAllEvents() {
   return [...EVENTS]
     .sort((a, b) => eventSortTime(b.date) - eventSortTime(a.date))
     .map(mapEvent)
+}
+
+export function eventSlug(title) {
+  return slugify(title)
+}
+
+export function eventPath(title) {
+  return `/events/${eventSlug(title)}`
+}
+
+export function getEventBySlug(slug) {
+  const event = EVENTS.find((e) => eventSlug(e.title) === slug)
+  return event ? mapEvent(event) : null
+}
+
+export function getAllEventSlugs() {
+  return EVENTS.map((e) => eventSlug(e.title))
 }

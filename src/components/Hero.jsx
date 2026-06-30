@@ -30,6 +30,8 @@ export default function Hero() {
           <img
             src="/hero-team.png?v=2"
             alt="Cyber Strix team with robot at competition"
+            width={800}
+            height={600}
             className="absolute inset-0 h-full w-full object-cover"
             loading="eager"
             decoding="async"

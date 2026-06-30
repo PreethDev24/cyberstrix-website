@@ -5,7 +5,7 @@ export default function About() {
     <section id="about" className="py-16 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10">
         <div>
-          <h2 className="text-3xl font-bold text-white">About Us</h2>
+          <h1 className="text-3xl font-bold text-white">About Us</h1>
           <div className="mt-6 space-y-4 text-white/80">
             <p>
               A student-led team of passionate high school engineers, programmers, and designers competing in the FIRST Tech Challenge.

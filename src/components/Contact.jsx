@@ -85,7 +85,7 @@ export default function Contact() {
     <section id="contact" className="py-16 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6 grid lg:grid-cols-2 gap-10">
         <div>
-          <h2 className="text-3xl font-bold text-white">Let's Talk</h2>
+          <h1 className="text-3xl font-bold text-white">Let&apos;s Talk</h1>
           <p className="mt-3 text-white/70">Have questions? Want to sponsor us? Interested in joining? We'd love to hear from you.</p>
 
           <div className="mt-6 space-y-1 text-sm text-white/80">

@@ -1,7 +1,7 @@
-import { useState, useEffect, useCallback, useMemo } from 'react'
-import * as Dialog from '@radix-ui/react-dialog'
-import { ChevronLeft, ChevronRight, Linkedin, X } from 'lucide-react'
-import { getMembersForSeason } from '../data/members'
+import { useState, useEffect, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import { getMembersForSeason, memberPath } from '../data/members'
+import { JOIN_FAQ } from '../data/joinFaq'
 import { getSeasonLabel, isCurrentSeason, membersPath } from '../data/seasons'
 import SeasonTabs from './SeasonTabs'
 
@@ -12,7 +12,6 @@ function memberSlides(m) {
 }
 
 export default function Members({ seasonId }) {
-  const [openMember, setOpenMember] = useState(null)
   const [activeFilter, setActiveFilter] = useState('all')
   const { leaders, engineers } = getMembersForSeason(seasonId)
   const isCurrent = isCurrentSeason(seasonId)
@@ -69,7 +68,7 @@ export default function Members({ seasonId }) {
   return (
     <section id="members" className="py-16 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6">
-        <h2 className="text-3xl font-bold text-white">Team Members</h2>
+        <h1 className="text-3xl font-bold text-white">Team Members</h1>
         <p className="mt-2 text-white/70">Meet the students behind Cyber Strix.</p>
 
         <div className="mt-6">
@@ -127,20 +126,24 @@ export default function Members({ seasonId }) {
 
             <h3 className="mt-8 text-2xl font-semibold text-white">{primaryHeading}</h3>
             <p className="mt-1 text-sm text-white/50">Tap a card for full bio and photo gallery.</p>
-            <div className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <ul className="mt-6 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 list-none p-0 m-0">
               {primaryMembers.map((m) => (
-                <MemberCard key={m.name} member={m} onOpen={() => setOpenMember(m)} />
+                <li key={m.name} className="list-none">
+                  <MemberCard member={m} />
+                </li>
               ))}
-            </div>
+            </ul>
 
             {secondaryMembers.length > 0 && (
               <>
                 <h3 className="mt-10 text-2xl font-semibold text-white">{secondaryHeading}</h3>
-                <div className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                <ul className="mt-4 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 list-none p-0 m-0">
                   {secondaryMembers.map((m) => (
-                    <MemberCard key={m.name} member={m} onOpen={() => setOpenMember(m)} />
+                    <li key={m.name} className="list-none">
+                      <MemberCard member={m} />
+                    </li>
                   ))}
-                </div>
+                </ul>
               </>
             )}
           </>
@@ -148,19 +151,15 @@ export default function Members({ seasonId }) {
 
         {isCurrent && (
           <div className="mt-10 p-6 rounded-2xl bg-gradient-to-br from-sky-500/10 to-blue-500/5 border border-sky-400/20">
-            <h3 className="text-xl font-semibold text-white">Interested in Joining Cyber Strix?</h3>
-            <ul className="mt-3 text-white/80 space-y-1">
-              <li>• Grades: 9 through 12</li>
-              <li>• Experience needed: None — we&apos;ll teach you</li>
-              <li>• Meeting Times: Mon–Fri, 7:00–9:30 PM</li>
-              <li>• Build Season: September – March</li>
-              <li>• Location: Mountain House, CA</li>
+            <h2 className="text-xl font-semibold text-white">Interested in Joining Cyber Strix?</h2>
+            <ul className="mt-3 text-white/80 space-y-1 list-none p-0">
+              {JOIN_FAQ.map((item) => (
+                <li key={item.question}>• {item.answer}</li>
+              ))}
             </ul>
           </div>
         )}
       </div>
-
-      <MemberDetailDialog member={openMember} onClose={() => setOpenMember(null)} />
     </section>
   )
 }
@@ -203,23 +202,16 @@ function filterLabel(filterId) {
   return filterId.charAt(0).toUpperCase() + filterId.slice(1)
 }
 
-function MemberCard({ member, onOpen }) {
+function MemberCard({ member }) {
   const tags = splitTags(member.specialties)
   const bodyType = 'text-base font-normal leading-6 [font-style:normal]'
   const slides = memberSlides(member)
   const cover = slides[0]
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={onOpen}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onOpen()
-        }
-      }}
+    <Link
+      to={memberPath(member.name)}
+      aria-label={`${member.name}, ${member.role}`}
       className="group relative rounded-3xl bg-white/5 border border-white/10 shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_30px_80px_-40px_rgba(0,0,0,0.9)] min-h-[420px] flex flex-col text-left transition hover:border-sky-500/40 hover:bg-white/[0.06] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
     >
       <div className="pointer-events-none absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity bg-[radial-gradient(circle_at_30%_10%,rgba(56,189,248,0.14),transparent_45%),radial-gradient(circle_at_70%_20%,rgba(59,130,246,0.10),transparent_45%)]" />
@@ -228,9 +220,12 @@ function MemberCard({ member, onOpen }) {
         {cover ? (
           <img
             src={cover}
-            alt=""
+            alt={`${member.name}, ${member.role}`}
+            width={400}
+            height={210}
             className="h-full w-full object-cover"
             loading="lazy"
+            decoding="async"
           />
         ) : (
           <div className="h-full w-full bg-[linear-gradient(135deg,rgba(56,189,248,0.16),transparent_45%),radial-gradient(circle_at_70%_25%,rgba(59,130,246,0.12),transparent_50%)]">
@@ -278,154 +273,6 @@ function MemberCard({ member, onOpen }) {
           <span className="text-xs font-medium text-sky-300 shrink-0">Profile →</span>
         </div>
       </div>
-    </div>
-  )
-}
-
-function MemberDetailDialog({ member, onClose }) {
-  const open = Boolean(member)
-  const slides = member ? memberSlides(member) : []
-  const [index, setIndex] = useState(0)
-
-  useEffect(() => {
-    if (member) setIndex(0)
-  }, [member])
-
-  const n = slides.length
-  const goPrev = useCallback(() => {
-    setIndex((i) => (n <= 1 ? i : (i - 1 + n) % n))
-  }, [n])
-  const goNext = useCallback(() => {
-    setIndex((i) => (n <= 1 ? i : (i + 1) % n))
-  }, [n])
-
-  useEffect(() => {
-    if (!open) return
-    const onKey = (ev) => {
-      if (ev.key === 'ArrowLeft') goPrev()
-      if (ev.key === 'ArrowRight') goNext()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open, goPrev, goNext])
-
-  if (!member) return null
-
-  const tags = splitTags(member.specialties)
-
-  return (
-    <Dialog.Root open={open} onOpenChange={(v) => !v && onClose()}>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm" />
-        <Dialog.Content
-          className="fixed left-1/2 top-1/2 z-50 w-[min(calc(100vw-1.5rem),42rem)] max-h-[min(calc(100vh-2rem),90vh)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-white/15 bg-zinc-950 p-0 shadow-2xl outline-none"
-          onPointerDownOutside={onClose}
-        >
-          <div className="sticky top-0 z-10 flex justify-end border-b border-white/10 bg-zinc-950/95 px-3 py-2 backdrop-blur">
-            <Dialog.Close
-              type="button"
-              className="rounded-lg p-2 text-white/70 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
-              aria-label="Close"
-            >
-              <X className="h-5 w-5" />
-            </Dialog.Close>
-          </div>
-
-          <div className="px-5 pb-5 pt-1">
-            <Dialog.Title className="text-xl font-bold text-white pr-8">{member.name}</Dialog.Title>
-            <Dialog.Description asChild>
-              <div className="mt-1 text-sm text-white/60">
-                <span className="text-sky-300/90">{member.role}</span>
-                <span className="mx-2 text-white/30">·</span>
-                <span>Grade {member.grade}</span>
-              </div>
-            </Dialog.Description>
-
-            {member.linkedin_url && (
-              <a
-                href={member.linkedin_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-white/80 transition hover:border-sky-400/40 hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
-              >
-                <Linkedin className="h-4 w-4 text-sky-300" />
-                LinkedIn
-              </a>
-            )}
-
-            {tags.length > 0 && (
-              <div className="mt-3 flex flex-wrap gap-2">
-                {tags.map((t) => (
-                  <span
-                    key={t}
-                    className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs text-white/80"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            )}
-
-            {n > 0 ? (
-              <div className="relative mt-5 overflow-hidden rounded-xl border border-white/10 bg-black/50">
-                <div className="aspect-[16/10] w-full">
-                  <img
-                    src={slides[index]}
-                    alt={`${member.name} — ${index + 1} of ${n}`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                {n > 1 && (
-                  <>
-                    <button
-                      type="button"
-                      onClick={goPrev}
-                      className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
-                      aria-label="Previous image"
-                    >
-                      <ChevronLeft className="h-6 w-6" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={goNext}
-                      className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/75 focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/60"
-                      aria-label="Next image"
-                    >
-                      <ChevronRight className="h-6 w-6" />
-                    </button>
-                  </>
-                )}
-                {n > 1 && (
-                  <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1.5">
-                    {slides.map((_, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => setIndex(i)}
-                        className={`h-1.5 rounded-full transition-all ${i === index ? 'w-6 bg-sky-400' : 'w-1.5 bg-white/40 hover:bg-white/60'}`}
-                        aria-label={`Go to slide ${i + 1}`}
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="relative mt-5 overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.16),transparent_45%)]">
-                <div className="aspect-[16/10] w-full flex items-center justify-center">
-                  <span className="text-5xl font-semibold text-sky-200/90">{initials(member.name)}</span>
-                </div>
-              </div>
-            )}
-
-            <div className="mt-5 space-y-3 text-sm leading-relaxed text-white/80">
-              <p>{member.bio}</p>
-              {member.more_bio && member.more_bio !== member.bio && (
-                <p className="text-white/70">{member.more_bio}</p>
-              )}
-            </div>
-          </div>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+    </Link>
   )
 }

@@ -1,5 +1,7 @@
 /** Team roster by FTC season. `images` powers the profile carousel; fall back to `imageSrc` when building cards. */
 
+import { slugify } from '../lib/slugs.js'
+
 const TEAM_SNAPS = [
   '/events/ftc-qualifier-4.svg',
   '/events/robotics-summer-camp-2025.svg',
@@ -156,4 +158,31 @@ export const MEMBERS_BY_SEASON = {
 
 export function getMembersForSeason(seasonId) {
   return MEMBERS_BY_SEASON[seasonId] ?? { leaders: [], engineers: [] }
+}
+
+export function memberSlug(name) {
+  return slugify(name)
+}
+
+export function memberPath(name) {
+  return `/members/${memberSlug(name)}`
+}
+
+export function getMemberBySlug(slug) {
+  for (const [seasonId, roster] of Object.entries(MEMBERS_BY_SEASON)) {
+    const all = [...roster.leaders, ...roster.engineers]
+    const member = all.find((m) => memberSlug(m.name) === slug)
+    if (member) return { member, seasonId }
+  }
+  return null
+}
+
+export function getAllMemberSlugs() {
+  const slugs = new Set()
+  for (const roster of Object.values(MEMBERS_BY_SEASON)) {
+    for (const member of [...roster.leaders, ...roster.engineers]) {
+      slugs.add(memberSlug(member.name))
+    }
+  }
+  return [...slugs]
 }

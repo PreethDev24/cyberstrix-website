@@ -68,11 +68,13 @@ export default function Sponsors() {
       <div className="mx-auto max-w-7xl px-6">
         <div className="pb-10">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-white md:text-4xl">Our Current Sponsors</h2>
+            <h1 className="text-3xl font-bold tracking-tight text-white md:text-4xl">Sponsors</h1>
             <p className="mx-auto mt-3 max-w-lg text-sm text-zinc-400 md:text-base">
               Powering our innovation through their generous support
             </p>
           </div>
+
+          <h2 className="sr-only">Our Current Sponsors</h2>
 
           <div className="mx-auto mt-10 max-w-3xl">
             <ul className="flex flex-col items-stretch gap-4">
