@@ -11,4 +11,5 @@ export const OG_IMAGES = {
   members: '/hero-team.png?v=2',
   events: '/events/ftc-qualifier-4/01.png',
   about: '/hero-team.png?v=2',
+  whatWeDo: '/hero-team.png?v=2',
 }

@@ -5,6 +5,7 @@ import { getAllEventSlugs } from '../data/events.js'
 const SITEMAP_META = {
   '/': { priority: '1.0', changefreq: 'weekly' },
   '/about': { priority: '0.8', changefreq: 'monthly' },
+  '/what-we-do': { priority: '0.8', changefreq: 'monthly' },
   '/members': { priority: '0.9', changefreq: 'weekly' },
   '/members/2025-26': { priority: '0.8', changefreq: 'monthly' },
   '/events': { priority: '0.9', changefreq: 'weekly' },

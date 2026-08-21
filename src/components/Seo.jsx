@@ -1,5 +1,13 @@
 import { Helmet } from 'react-helmet-async'
-import { DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from '../data/site'
+import {
+  BING_SITE_VERIFICATION,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  GOOGLE_SITE_VERIFICATION,
+  SITE_NAME,
+  SITE_URL,
+  TEAM_LOCATION,
+} from '../data/site'
 import { absoluteUrl } from '../seo/urls'
 
 export default function Seo({
@@ -18,10 +26,26 @@ export default function Seo({
 
   return (
     <Helmet>
+      <html lang="en" />
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={canonical} />
-      {noIndex && <meta name="robots" content="noindex, nofollow" />}
+      {noIndex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+      )}
+
+      <meta name="geo.region" content={`US-${TEAM_LOCATION.region}`} />
+      <meta name="geo.placename" content={TEAM_LOCATION.city} />
+      <meta name="ICBM" content="37.7739, -121.5430" />
+
+      {GOOGLE_SITE_VERIFICATION ? (
+        <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />
+      ) : null}
+      {BING_SITE_VERIFICATION ? (
+        <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />
+      ) : null}
 
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content={SITE_NAME} />

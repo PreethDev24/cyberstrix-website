@@ -1,13 +1,12 @@
-import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Linkedin, ArrowLeft } from 'lucide-react'
+import { Linkedin, ArrowLeft } from 'lucide-react'
 import { memberPath } from '../data/members'
 import { membersPath } from '../data/seasons'
 
-function memberSlides(member) {
-  if (member.images?.length) return member.images
-  if (member.imageSrc) return [member.imageSrc]
-  return []
+function memberPhoto(member) {
+  if (member.imageSrc) return member.imageSrc
+  if (member.images?.length) return member.images[0]
+  return null
 }
 
 function initials(name) {
@@ -28,31 +27,8 @@ function splitTags(specialties) {
 }
 
 export default function MemberProfile({ member, seasonId }) {
-  const slides = memberSlides(member)
-  const [index, setIndex] = useState(0)
+  const photo = memberPhoto(member)
   const tags = splitTags(member.specialties)
-  const n = slides.length
-
-  useEffect(() => {
-    setIndex(0)
-  }, [member.name])
-
-  const goPrev = useCallback(() => {
-    setIndex((i) => (n <= 1 ? i : (i - 1 + n) % n))
-  }, [n])
-
-  const goNext = useCallback(() => {
-    setIndex((i) => (n <= 1 ? i : (i + 1) % n))
-  }, [n])
-
-  useEffect(() => {
-    const onKey = (ev) => {
-      if (ev.key === 'ArrowLeft') goPrev()
-      if (ev.key === 'ArrowRight') goNext()
-    }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [goPrev, goNext])
 
   return (
     <article className="mx-auto max-w-3xl px-6 py-8">
@@ -97,40 +73,20 @@ export default function MemberProfile({ member, seasonId }) {
         </ul>
       )}
 
-      {n > 0 ? (
-        <div className="relative mt-6 overflow-hidden rounded-xl border border-white/10 bg-black/50">
+      {photo ? (
+        <div className="mt-6 overflow-hidden rounded-xl border border-white/10 bg-black/50">
           <div className="aspect-[16/10] w-full">
             <img
-              src={slides[index]}
-              alt={`${member.name} — photo ${index + 1} of ${n}`}
+              src={photo}
+              alt={member.name}
               width={640}
               height={400}
               className="h-full w-full object-cover"
             />
           </div>
-          {n > 1 && (
-            <>
-              <button
-                type="button"
-                onClick={goPrev}
-                className="absolute left-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/75"
-                aria-label="Previous image"
-              >
-                <ChevronLeft className="h-6 w-6" />
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                className="absolute right-2 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-black/60 text-white shadow-lg backdrop-blur transition hover:bg-black/75"
-                aria-label="Next image"
-              >
-                <ChevronRight className="h-6 w-6" />
-              </button>
-            </>
-          )}
         </div>
       ) : (
-        <div className="relative mt-6 overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.16),transparent_45%)]">
+        <div className="mt-6 overflow-hidden rounded-xl border border-white/10 bg-[linear-gradient(135deg,rgba(56,189,248,0.16),transparent_45%)]">
           <div className="flex aspect-[16/10] w-full items-center justify-center">
             <span className="text-5xl font-semibold text-sky-200/90">{initials(member.name)}</span>
           </div>

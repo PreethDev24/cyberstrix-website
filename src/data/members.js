@@ -1,17 +1,7 @@
-/** Team roster by FTC season. `images` powers the profile carousel; fall back to `imageSrc` when building cards. */
+/** Team roster by FTC season. Use `imageSrc` for member photos. */
 
 import { slugify } from '../lib/slugs.js'
-
-const TEAM_SNAPS = [
-  '/events/ftc-qualifier-4.svg',
-  '/events/robotics-summer-camp-2025.svg',
-  '/events/bethany-steam-fair.svg',
-]
-
-function gallery(primary, extras = TEAM_SNAPS) {
-  const base = primary ? [primary, ...extras] : [...extras]
-  return base.slice(0, 3)
-}
+import { CURRENT_SEASON } from './seasons.js'
 
 const LEADERS_2025_26 = [
   {
@@ -27,7 +17,6 @@ const LEADERS_2025_26 = [
       'He bridges software and outreach so our robot story reaches sponsors and new students alike.',
     imageSrc: '/members/rohan.png',
     linkedin_url: 'https://www.linkedin.com/in/rohan-sugate/',
-    images: gallery('/members/rohan.png'),
   },
   {
     name: 'Shreeansh Shinde',
@@ -40,7 +29,6 @@ const LEADERS_2025_26 = [
       'He mentors newer builders on tool safety, iteration, and how to document design decisions for the notebook.',
     imageSrc: '/members/shreeansh.png',
     linkedin_url: 'https://www.linkedin.com/in/shreeansh-shinde-705a25371/',
-    images: gallery('/members/shreeansh.png'),
   },
 ]
 
@@ -55,7 +43,6 @@ const ENGINEERS_2025_26 = [
       'and keeps the codebase organized as features land late in the season.',
     specialties: 'Programming, Build',
     imageSrc: '/members/shresta.png',
-    images: gallery('/members/shresta.png'),
   },
   {
     name: 'Preeth Nambiar',
@@ -68,7 +55,6 @@ const ENGINEERS_2025_26 = [
     specialties: 'Programming, Treasurer, Build, Scout',
     imageSrc: '/members/preeth.png',
     linkedin_url: 'https://www.linkedin.com/in/preeth-nambiar-30090a37b/',
-    images: gallery('/members/preeth.png'),
   },
   {
     name: 'Pranav Nittala',
@@ -80,7 +66,6 @@ const ENGINEERS_2025_26 = [
       'translate to parts on the robot.',
     specialties: 'Build, CAD',
     imageSrc: null,
-    images: [...TEAM_SNAPS],
   },
   {
     name: 'Bea Verdan',
@@ -92,7 +77,6 @@ const ENGINEERS_2025_26 = [
       'and printed components.',
     specialties: 'CAD, Build',
     imageSrc: '/members/bea.png',
-    images: gallery('/members/bea.png'),
   },
   {
     name: 'Sebastian Hernandez',
@@ -104,7 +88,6 @@ const ENGINEERS_2025_26 = [
       'before we load in at qualifiers.',
     specialties: 'Build, CAD',
     imageSrc: '/members/sebastian.png',
-    images: gallery('/members/sebastian.png'),
   },
   {
     name: 'Harshita Pandey',
@@ -117,7 +100,6 @@ const ENGINEERS_2025_26 = [
     specialties: 'Programming',
     imageSrc: '/members/harshita.png',
     linkedin_url: 'https://www.linkedin.com/in/harshita-pandey-3b2b2a353/',
-    images: gallery('/members/harshita.png'),
   },
   {
     name: 'Nikil Sriram',
@@ -129,7 +111,6 @@ const ENGINEERS_2025_26 = [
       'programming on sensor placement.',
     specialties: 'Build',
     imageSrc: '/members/nikil.png',
-    images: gallery('/members/nikil.png'),
   },
   {
     name: 'Shantanu Prakash',
@@ -141,8 +122,22 @@ const ENGINEERS_2025_26 = [
       'match legal between inspections. He also led camp operations during our outreach programs. Scout during competition day — tracks matches and alliance options for the drive team.',
     specialties: 'Build, Camp, Scout',
     imageSrc: '/members/shantanu.png',
-    images: gallery('/members/shantanu.png'),
   },
+]
+
+/** Clone a member for another season, optionally overriding fields like grade. */
+function forSeason(member, overrides = {}) {
+  return { ...member, ...overrides }
+}
+
+const LEADERS_2026_27 = [
+  forSeason(LEADERS_2025_26[0], { grade: '12' }),
+  forSeason(LEADERS_2025_26[1], { grade: '12' }),
+]
+
+const ENGINEERS_2026_27 = [
+  forSeason(ENGINEERS_2025_26[0], { grade: '12' }),
+  forSeason(ENGINEERS_2025_26[1], { grade: '12' }),
 ]
 
 export const MEMBERS_BY_SEASON = {
@@ -151,8 +146,8 @@ export const MEMBERS_BY_SEASON = {
     engineers: ENGINEERS_2025_26,
   },
   '2026-27': {
-    leaders: [LEADERS_2025_26[0], LEADERS_2025_26[1]],
-    engineers: [ENGINEERS_2025_26[0], ENGINEERS_2025_26[1]],
+    leaders: LEADERS_2026_27,
+    engineers: ENGINEERS_2026_27,
   },
 }
 
@@ -169,7 +164,15 @@ export function memberPath(name) {
 }
 
 export function getMemberBySlug(slug) {
-  for (const [seasonId, roster] of Object.entries(MEMBERS_BY_SEASON)) {
+  const seasons = Object.keys(MEMBERS_BY_SEASON)
+  const ordered = [
+    CURRENT_SEASON,
+    ...seasons.filter((id) => id !== CURRENT_SEASON),
+  ]
+
+  for (const seasonId of ordered) {
+    const roster = MEMBERS_BY_SEASON[seasonId]
+    if (!roster) continue
     const all = [...roster.leaders, ...roster.engineers]
     const member = all.find((m) => memberSlug(m.name) === slug)
     if (member) return { member, seasonId }

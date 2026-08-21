@@ -1,4 +1,5 @@
 import CountUp from './CountUp'
+import { TEAM_FACTS } from '../data/site'
 
 export default function About() {
   return (
@@ -44,13 +45,30 @@ export default function About() {
       </div>
 
       <div className="mx-auto max-w-7xl px-6 mt-12">
+        <div className="p-6 rounded-2xl border border-white/10 bg-white/[0.03]">
+          <h2 className="text-xl font-semibold text-white">Cyber Strix at a glance</h2>
+          <p className="mt-2 text-sm text-white/60">
+            Key facts about FTC Team 31022 for students, parents, sponsors, and partners.
+          </p>
+          <dl className="mt-6 grid sm:grid-cols-2 gap-4">
+            {TEAM_FACTS.map((fact) => (
+              <div key={fact.label} className="rounded-xl border border-white/10 bg-black/30 p-4">
+                <dt className="text-xs uppercase tracking-[0.18em] text-sky-300/80">{fact.label}</dt>
+                <dd className="mt-2 text-sm text-white/80">{fact.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
+
+      <div className="mx-auto max-w-7xl px-6 mt-12">
         <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
           <h3 className="text-xl font-semibold text-white">What is FTC?</h3>
           <p className="mt-2 text-white/80">
             FIRST Tech Challenge (FTC) is a robotics competition designed for students in grades 7–12. Teams design, build, and program robots to compete in an alliance format against other teams.
           </p>
           <p className="mt-2 text-white/70">
-            FTC isn't just about building robots. It's about learning teamwork, problem-solving, and real-world engineering skills that prepare students for careers in STEM.
+            FTC isn&apos;t just about building robots. It&apos;s about learning teamwork, problem-solving, and real-world engineering skills that prepare students for careers in STEM.
           </p>
           <p className="mt-2 text-white/70">
             Each season brings a new game challenge that requires teams to rethink their approach from scratch, keeping every year fresh and demanding.

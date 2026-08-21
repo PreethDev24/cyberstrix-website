@@ -23,6 +23,7 @@ export default function Footer() {
             {[
               { to: '/', label: 'Home' },
               { to: '/about', label: 'About' },
+              { to: '/what-we-do', label: 'What We Do' },
               { to: '/events', label: 'Events' },
               { to: '/members', label: 'Members' },
               { to: '/sponsors', label: 'Sponsors' },

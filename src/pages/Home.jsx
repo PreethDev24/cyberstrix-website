@@ -1,7 +1,7 @@
 import Hero from '../components/Hero'
-import WhatWeDo from '../components/WhatWeDo'
+import Highlights from '../components/Highlights'
 import Seo from '../components/Seo'
-import { organizationJsonLd } from '../seo/jsonLd'
+import { organizationJsonLd, websiteJsonLd } from '../seo/jsonLd'
 import { OG_IMAGES } from '../seo/urls'
 import { DEFAULT_DESCRIPTION, SITE_NAME } from '../data/site'
 
@@ -13,10 +13,10 @@ export default function Home() {
         description={DEFAULT_DESCRIPTION}
         path="/"
         ogImage={OG_IMAGES.home}
-        jsonLd={organizationJsonLd()}
+        jsonLd={[organizationJsonLd(), websiteJsonLd()]}
       />
       <Hero />
-      <WhatWeDo />
+      <Highlights />
     </>
   )
 }

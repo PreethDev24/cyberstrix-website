@@ -7,6 +7,7 @@ const LOGO = 'https://flamesimagestorage.blob.core.windows.net/files/048b51bf-77
 const links = [
   { to: '/', label: 'Home', end: true },
   { to: '/about', label: 'About', end: true },
+  { to: '/what-we-do', label: 'What We Do', end: true },
   { to: '/members', label: 'Members', end: false },
   { to: '/events', label: 'Events', end: false, matchPrefix: '/events' },
   { to: '/sponsors', label: 'Sponsors', end: true },

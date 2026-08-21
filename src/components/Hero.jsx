@@ -7,8 +7,8 @@ export default function Hero() {
           <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-white">Cyber Strix</h1>
           <p className="mt-4 text-xl text-white/80">Engineering the future. Inspiring the next generation.</p>
           <p className="mt-4 text-white/70 max-w-xl">
-            A student-led FTC robotics team competing in FTC robotics while designing, building, and
-            programming competitive robots while expanding STEM access across our community.
+            A student-led FTC team from Mountain House designing, building, and programming competitive
+            robots while expanding STEM access in our community and beyond.
           </p>
 
           <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -16,7 +16,7 @@ export default function Hero() {
               { k: '4+ ', v: 'Qualifiers this season' },
               { k: 'NorCal', v: 'Regional target' },
               { k: '10+ ', v: 'Team members' },
-              { k: '100+ ', v: 'Students reached' },
+              { k: '150+ ', v: 'Students reached' },
             ].map((s, i) => (
               <div key={i} className="p-4 rounded-xl bg-white/5 border border-white/10">
                 <div className="text-2xl font-bold text-sky-300">{s.k}</div>

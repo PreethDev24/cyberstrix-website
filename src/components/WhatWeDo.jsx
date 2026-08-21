@@ -21,17 +21,43 @@ export default function WhatWeDo() {
         'Empowering students to own projects, develop leadership, and prepare for careers in engineering and STEM.',
     },
   ]
+
+  const opportunities = [
+    {
+      title: 'Hands-on engineering',
+      text: 'Build real skills in building, programming, and CAD through competitive robot design.',
+    },
+    {
+      title: 'Leadership',
+      text: 'Take ownership of projects and grow as a leader on a student-run team.',
+    },
+    {
+      title: 'Beyond the robot',
+      text: 'Get involved in outreach, fundraising, media, and event planning — not just the machine.',
+    },
+  ]
+
   return (
-    <section className="py-16" aria-labelledby="whatwedo-title">
+    <section id="what-we-do" className="py-16 border-t border-white/10">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
+        <div className="max-w-3xl">
+          <h1 id="whatwedo-title" className="text-3xl font-bold text-white">
+            What We Do
+          </h1>
+          <p className="mt-3 text-white/70">
+            Cyber Strix is a student-led team where you can learn, compete, and face real-world
+            responsibilities.
+          </p>
+        </div>
+
+        <div className="mt-10 rounded-2xl border border-white/10 bg-white/[0.03] p-6">
           <div className="font-medium text-white">Impact stats:</div>
           <div className="mt-3 grid grid-cols-2 gap-4 sm:grid-cols-4">
             {[
               { k: '4+', v: 'Competitions per season' },
-              { k: '100+', v: 'Students reached via outreach' },
+              { k: '150+', v: 'Students reached via outreach' },
               { k: '10+', v: 'Team members' },
-              { k: 'Global', v: 'international outreach reach' },
+              { k: 'Global', v: 'International outreach reach' },
             ].map((s, i) => (
               <div key={i} className="rounded-xl border border-white/10 bg-black/30 p-4">
                 <div className="text-2xl font-bold text-teal-400">{s.k}</div>
@@ -41,10 +67,11 @@ export default function WhatWeDo() {
           </div>
         </div>
 
-        <div className="max-w-2xl">
-          <h2 id="whatwedo-title" className="text-3xl font-bold text-white">Built to Compete</h2>
+        <div className="mt-12 max-w-2xl">
+          <h2 className="text-2xl font-bold text-white">Built to Compete</h2>
           <p className="mt-3 text-white/70">
-            Building robots, developing skills, and making a difference in our community through hands-on STEM education and real engineering challenges.
+            Building robots, developing skills, and making a difference in our community through
+            hands-on STEM education and real engineering challenges.
           </p>
         </div>
 
@@ -57,12 +84,32 @@ export default function WhatWeDo() {
           ))}
         </div>
 
+        <div className="mt-12 max-w-2xl">
+          <h2 className="text-2xl font-bold text-white">What members get</h2>
+          <p className="mt-3 text-white/70">
+            Join to compete — and leave with skills, ownership, and experience that go far beyond
+            match day.
+          </p>
+        </div>
+
+        <div className="mt-8 grid sm:grid-cols-3 gap-4">
+          {opportunities.map((it) => (
+            <div key={it.title} className="p-5 rounded-xl bg-white/5 border border-white/10">
+              <div className="text-lg font-semibold text-sky-300">{it.title}</div>
+              <p className="mt-2 text-sm text-white/70">{it.text}</p>
+            </div>
+          ))}
+        </div>
+
         <div className="mt-10 p-6 rounded-2xl bg-gradient-to-br from-sky-500/10 to-blue-500/5 border border-sky-400/20">
           <blockquote className="text-white text-lg font-medium">
-            "We believe everyone should have an opportunity to compete in robotics — not just to learn, but to succeed and have fun."
+            &ldquo;We believe everyone should have an opportunity to compete in robotics — not just to
+            learn, but to succeed and have fun.&rdquo;
           </blockquote>
           <p className="mt-3 text-white/70 max-w-3xl">
-            Cyber Strix is more than a robotics team. We're a proving ground for the next generation of engineers, leaders, and community builders. Based in Mountain House, CA — competing globally.
+            Cyber Strix is more than a robotics team. We&apos;re a proving ground for the next
+            generation of engineers, leaders, and community builders. Based in Mountain House, CA —
+            competing globally.
           </p>
         </div>
       </div>

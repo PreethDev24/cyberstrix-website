@@ -40,11 +40,11 @@ export const EVENTS = [
     date: 'February 6, 2026',
     location: 'Mountain House, CA',
     details:
-      'The fourth regional qualifier in the NorCal circuit. Cyber Strix competed to earn ' +
-      'ranking points toward the NorCal Regional Championship.',
+      'The fourth regional qualifier in the NorCal circuit, also known as the 2026 North East League Tournament. ' +
+      'Cyber Strix earned 2nd Place Finalist Alliance while competing for ranking points toward the NorCal Regional Championship.',
     more_info:
-      'Qualifier 4 was a key opportunity to refine autonomous routines, tele-op strategy, and alliance selection ' +
-      'before championships. Fans and families attended to cheer on NorCal FTC teams.',
+      'Qualifier 4 was where Cyber Strix secured 2nd Place Finalist Alliance. The team refined autonomous routines, ' +
+      'tele-op strategy, and alliance selection under real match pressure, with fans and families cheering on NorCal FTC teams.',
     image_url: '/events/ftc-qualifier-4/01.png',
     images: [
       '/events/ftc-qualifier-4/01.png',
@@ -67,13 +67,14 @@ export const EVENTS = [
     type: 'Outreach',
     tag: 'outreach',
     date: 'February 3, 2026',
-    location: 'Gadag, India',
+    location: 'Online · Gadag, India',
+    attendanceMode: 'online',
     details:
-      'Cyber Strix traveled internationally to Gadag, India to run STEM education workshops for local ' +
-      'students, sharing robotics knowledge and inspiring the next generation of engineers globally.',
+      'Cyber Strix held a multi-hour online meeting with students in Gadag, India for a STEM information exchange. ' +
+      'We shared what our team does, walked through robotics and STEM concepts, and showcased what we built, while they did the same from their side.',
     more_info:
-      'Sessions covered basic programming logic, robot mechanisms, and teamwork — mirroring how we learn at home ' +
-      'while adapting activities for the classroom. Outreach like this reflects FIRST’s mission beyond the playing field.',
+      'The session was a two-way exchange, not a one-sided workshop. Both teams presented projects, asked questions, and compared how they learn and build. ' +
+      'Outreach like this reflects FIRST’s mission beyond the playing field and connects Cyber Strix with peers in rural India.',
     image_url: '/events/outreach-gadag/01.png',
     images: [
       '/events/outreach-gadag/01.png',

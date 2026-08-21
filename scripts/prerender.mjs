@@ -55,6 +55,7 @@ ${routes
 const robots = `User-agent: *
 Allow: /
 
+# AI / assistant crawlers — key facts also at /llms.txt
 Sitemap: ${siteUrl}/sitemap.xml
 `
 
