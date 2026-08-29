@@ -41,6 +41,6 @@ export const TEAM_FACTS = [
   { label: 'Team', value: `Cyber Strix — FIRST Tech Challenge Team ${TEAM_NUMBER}` },
   { label: 'Location', value: TEAM_LOCATION.display },
   { label: 'Award', value: TEAM_AWARD },
-  { label: 'Outreach', value: '150+ students reached through STEM outreach, including an online exchange with students in Gadag, India' },
+  { label: 'Outreach', value: '150+ students reached through STEM outreach, including an online exchange with around 80 students in Gadag, India' },
   { label: 'Focus', value: 'Competitive robotics, CAD, programming, leadership, and community STEM programs' },
 ]

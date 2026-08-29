@@ -104,9 +104,9 @@ export default function Highlights() {
               <h3 className="mt-3 text-3xl md:text-4xl font-bold text-white leading-tight">
                 STEM exchange with rural India
               </h3>
-              <p className="mt-3 text-lg text-white/80">Online session with students in Gadag</p>
+              <p className="mt-3 text-lg text-white/80">Online session with ~80 students in Gadag</p>
               <p className="mt-4 text-white/60 max-w-md">
-                A multi-hour virtual meetup where Cyber Strix and students in Gadag traded ideas, STEM
+                A multi-hour virtual meetup where Cyber Strix and around 80 students in Gadag traded ideas, STEM
                 knowledge, and showcases of what each side built.
               </p>
               <Link

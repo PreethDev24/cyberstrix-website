@@ -70,10 +70,10 @@ export const EVENTS = [
     location: 'Online · Gadag, India',
     attendanceMode: 'online',
     details:
-      'Cyber Strix held a multi-hour online meeting with students in Gadag, India for a STEM information exchange. ' +
+      'Cyber Strix held a multi-hour online meeting with around 80 students in Gadag, India for a STEM information exchange. ' +
       'We shared what our team does, walked through robotics and STEM concepts, and showcased what we built, while they did the same from their side.',
     more_info:
-      'The session was a two-way exchange, not a one-sided workshop. Both teams presented projects, asked questions, and compared how they learn and build. ' +
+      'The session was a two-way exchange, not a one-sided workshop. Roughly 80 students joined from Gadag as both sides presented projects, asked questions, and compared how they learn and build. ' +
       'Outreach like this reflects FIRST’s mission beyond the playing field and connects Cyber Strix with peers in rural India.',
     image_url: '/events/outreach-gadag/01.png',
     images: [

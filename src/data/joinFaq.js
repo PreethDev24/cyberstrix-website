@@ -40,7 +40,7 @@ export const TEAM_FAQ = [
   {
     question: 'What kind of outreach does Cyber Strix do?',
     answer:
-      'Cyber Strix has reached 150+ students through STEM outreach, including camps, school visits, and an online STEM exchange with students in Gadag, India.',
+      'Cyber Strix has reached 150+ students through STEM outreach, including camps, school visits, and an online STEM exchange with around 80 students in Gadag, India.',
   },
   {
     question: 'How can I contact Cyber Strix?',
