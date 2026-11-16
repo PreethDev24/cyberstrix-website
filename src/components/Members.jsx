@@ -186,7 +186,7 @@ const LEADERS_BY_FILTER = {
   programming: ['Shresta Bollu'],
   cad: ['Shreeansh Shinde'],
   build: ['Shreeansh Shinde'],
-  outreach: ['Rohan Sugate'],
+  outreach: ['Diyashri Gopalan'],
   treasurer: ['Preeth Nambiar'],
 }
 

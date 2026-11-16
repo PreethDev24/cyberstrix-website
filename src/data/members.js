@@ -138,6 +138,38 @@ const LEADERS_2026_27 = [
 const ENGINEERS_2026_27 = [
   forSeason(ENGINEERS_2025_26[0], { grade: '12' }),
   forSeason(ENGINEERS_2025_26[1], { grade: '12' }),
+  {
+    name: 'Diyashri Gopalan',
+    role: 'Outreach',
+    grade: '',
+    bio: 'Outreach and Build.',
+    specialties: 'Outreach, Build',
+    imageSrc: null,
+  },
+  {
+    name: 'Kaitlyn Qutob',
+    role: 'CAD',
+    grade: '',
+    bio: 'CAD and Build.',
+    specialties: 'CAD, Build',
+    imageSrc: null,
+  },
+  {
+    name: 'Kevin Simiyon Antoni Milton',
+    role: 'Build',
+    grade: '',
+    bio: 'Builder.',
+    specialties: 'Build',
+    imageSrc: null,
+  },
+  {
+    name: 'Roshni Sugate',
+    role: 'Build',
+    grade: '',
+    bio: 'Builder.',
+    specialties: 'Build',
+    imageSrc: null,
+  },
 ]
 
 export const MEMBERS_BY_SEASON = {
